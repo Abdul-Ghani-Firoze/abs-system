@@ -10,5 +10,21 @@ package com.abs.model;
  * @author ghani
  */
 public class User {
-    
+
+    private String sessionId;
+
+    public User(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public User() {
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
 }
