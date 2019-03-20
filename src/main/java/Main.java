@@ -1,6 +1,8 @@
 
 import com.abs.controller.DataCollector;
-import com.abs.model.ProductVisit;
+import com.abs.entity.CategoryVisit;
+import com.abs.entity.ProductVisit;
+import com.abs.model.User;
 import com.abs.util.DBHelper;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -20,9 +22,10 @@ public class Main {
     public static void main(String[] args) {
         try (Connection conn = DBHelper.getConnection()) {
             DataCollector dc = new DataCollector();
-            List<List<ProductVisit>> productVisitsList = dc.getProductVisits("cacvjefds2hf76bg1f1sgku8c7");
-            for (List<ProductVisit> pV : productVisitsList) {
-                for (ProductVisit pv : pV) {
+            User user = new User("cacvjefds2hf76bg1f1sgku8c7");
+            List<List<CategoryVisit>> categoryVisitsList = dc.getCategoryVisits(user);
+            for (List<CategoryVisit> pV : categoryVisitsList) {
+                for (CategoryVisit pv : pV) {
                     System.out.println("LIST: " + pv.getUser().getSessionId());
                 }
             }

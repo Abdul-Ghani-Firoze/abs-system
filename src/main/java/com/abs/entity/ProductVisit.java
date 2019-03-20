@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.abs.model;
+package com.abs.entity;
 
+import com.abs.model.Product;
+import com.abs.model.User;
 import java.sql.Timestamp;
 
 /**
@@ -12,6 +14,7 @@ import java.sql.Timestamp;
  * @author ghani
  */
 public class ProductVisit {
+
     private Product product;
     private User user;
     private Timestamp enteredAt;
@@ -48,6 +51,5 @@ public class ProductVisit {
     public void setLeftAt(Timestamp leftAt) {
         this.leftAt = leftAt;
     }
-    
-    
+
 }
