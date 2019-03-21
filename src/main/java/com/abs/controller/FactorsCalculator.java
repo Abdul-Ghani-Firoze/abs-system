@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.abs.service;
-
-import com.abs.model.Discount;
+package com.abs.controller;
 
 /**
  *
  * @author ghani
  */
-public interface DiscountService {
-        
-    public void test();
-    public Discount getDiscount();
+public class FactorsCalculator {
+    
 }

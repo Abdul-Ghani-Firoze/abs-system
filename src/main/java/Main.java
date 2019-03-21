@@ -19,18 +19,18 @@ import java.util.List;
  */
 public class Main {
 
-    public static void main(String[] args) {
-        try (Connection conn = DBHelper.getConnection()) {
-            DataCollector dc = new DataCollector();
-            User user = new User("cacvjefds2hf76bg1f1sgku8c7");
-            List<List<CategoryVisit>> categoryVisitsList = dc.getCategoryVisits(user);
-            for (List<CategoryVisit> pV : categoryVisitsList) {
-                for (CategoryVisit pv : pV) {
-                    System.out.println("LIST: " + pv.getUser().getSessionId());
-                }
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+//    public static void main(String[] args) {
+//        try (Connection conn = DBHelper.getConnection()) {
+//            DataCollector dc = new DataCollector();
+//            User user = new User("cacvjefds2hf76bg1f1sgku8c7");
+//            List<List<CategoryVisit>> categoryVisitsList = dc.getCategoryVisits(user);
+//            for (List<CategoryVisit> pV : categoryVisitsList) {
+//                for (CategoryVisit pv : pV) {
+//                    System.out.println("LIST: " + pv.getUser().getSessionId());
+//                }
+//            }
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
 }

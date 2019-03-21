@@ -3,7 +3,7 @@
     <display-name>ABS</display-name>
 
     <!-- Jersey Servlet configurations -->
-    <!--    <servlet>
+    <servlet>
         <servlet-name>Jersey REST Service</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
@@ -15,17 +15,17 @@
     <servlet-mapping>
         <servlet-name>Jersey REST Service</servlet-name>
         <url-pattern>/*</url-pattern>
-    </servlet-mapping>-->
+    </servlet-mapping>
     <!-- Jersey Servlet configurations -->
 
-    <filter>
-        <!-- The CORS filter with parameters -->
+<!--    <filter>
+         The CORS filter with parameters 
         <filter-name>CORS</filter-name>
         <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
 		
-        <!-- Note: All parameters are options, if omitted the CORS 
+         Note: All parameters are options, if omitted the CORS 
            Filter will fall back to the respective default values.
-        -->
+        
         <init-param>
             <param-name>cors.allowGenericHttpRequests</param-name>
             <param-value>true</param-value>
@@ -69,9 +69,9 @@
     </filter>
 
     <filter-mapping>
-        <!-- CORS Filter mapping -->
+         CORS Filter mapping 
         <filter-name>CORS</filter-name>
         <url-pattern>/recorder</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
 
 </web-app>

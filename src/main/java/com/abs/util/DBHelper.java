@@ -16,8 +16,11 @@ import java.util.ResourceBundle;
  */
 public class DBHelper {
 
+    public static final String TABLE_USERS = "user";
     public static final String TABLE_PRODUCT_VISITS = "product_visits";
     public static final String TABLE_CATEGORY_VISITS = "category_visits";
+    public static final String COLUMN_USER_ID = "userId";
+    public static final String COLUMN_MEMBER = "member";
     public static final String COLUMN_SESSION_ID = "sessionId";
     public static final String COLUMN_PRODUCT_ID = "productId";
     public static final String COLUMN_PRODUCT_URL = "productUrl";

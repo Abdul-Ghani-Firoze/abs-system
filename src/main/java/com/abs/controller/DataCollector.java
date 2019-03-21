@@ -34,8 +34,8 @@ public class DataCollector {
         resultSet = null;
 
         try (Connection conn = DBHelper.getConnection()) {
-            preparedStatement = conn.prepareStatement("SELECT * FROM " + DBHelper.TABLE_PRODUCT_VISITS + " WHERE " + DBHelper.COLUMN_SESSION_ID + " = ?");
-            preparedStatement.setString(1, user.getSessionId());
+            preparedStatement = conn.prepareStatement("SELECT * FROM " + DBHelper.TABLE_PRODUCT_VISITS + " WHERE " + DBHelper.COLUMN_USER_ID + " = ?");
+            preparedStatement.setInt(1, user.getUserId());
             resultSet = preparedStatement.executeQuery();
             readProductVisits(resultSet);
         } catch (SQLException ex) {
@@ -49,8 +49,8 @@ public class DataCollector {
         resultSet = null;
 
         try (Connection conn = DBHelper.getConnection()) {
-            preparedStatement = conn.prepareStatement("SELECT * FROM " + DBHelper.TABLE_CATEGORY_VISITS + " WHERE " + DBHelper.COLUMN_SESSION_ID + " = ?");
-            preparedStatement.setString(1, user.getSessionId());
+            preparedStatement = conn.prepareStatement("SELECT * FROM " + DBHelper.TABLE_CATEGORY_VISITS + " WHERE " + DBHelper.COLUMN_USER_ID + " = ?");
+            preparedStatement.setInt(1, user.getUserId());
             resultSet = preparedStatement.executeQuery();
             readCategoryVisits(resultSet);
         } catch (SQLException ex) {
@@ -59,15 +59,37 @@ public class DataCollector {
         return categoryVisits;
     }
 
+    private User getUser(int userId) {
+        preparedStatement = null;
+        resultSet = null;
+        User user = null;
+
+        try (Connection conn = DBHelper.getConnection()) {
+            preparedStatement = conn.prepareStatement("SELECT * FROM " + DBHelper.TABLE_USERS + " WHERE " + DBHelper.COLUMN_USER_ID + " = ?");
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
+            user = new User();
+            user.setUserId(resultSet.getInt(DBHelper.COLUMN_USER_ID));
+            user.setMember(resultSet.getBoolean(DBHelper.COLUMN_MEMBER));
+            user.setSessionId(resultSet.getString(DBHelper.COLUMN_SESSION_ID));
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return user;
+    }
+
     private void readProductVisits(ResultSet resultSet) {
         try {
             productVisits = new ArrayList<>();
             List<ProductVisit> productVisitList = new ArrayList<>();
             while (resultSet.next()) {
                 ProductVisit productVisit = new ProductVisit();
-                productVisit.setUser(new User(resultSet.getString(DBHelper.COLUMN_SESSION_ID)));
-                productVisit.setProduct(new Product(this.resultSet.getInt(DBHelper.COLUMN_PRODUCT_ID), resultSet.getString(DBHelper.COLUMN_PRODUCT_URL)));
-                productVisit.setEnteredAt(this.resultSet.getTimestamp(DBHelper.COLUMN_ENTERED_AT));
+                productVisit.setUser(getUser(resultSet.getInt(DBHelper.COLUMN_USER_ID)));
+                productVisit.setProduct(new Product(resultSet.getInt(DBHelper.COLUMN_PRODUCT_ID), resultSet.getString(DBHelper.COLUMN_PRODUCT_URL)));
+                productVisit.setEnteredAt(resultSet.getTimestamp(DBHelper.COLUMN_ENTERED_AT));
                 productVisit.setLeftAt(resultSet.getTimestamp(DBHelper.COLUMN_LEFT_AT));
                 productVisitList.add(productVisit);
             }
@@ -83,7 +105,7 @@ public class DataCollector {
             List<CategoryVisit> categoryVisitList = new ArrayList<>();
             while (resultSet.next()) {
                 CategoryVisit categoryVisit = new CategoryVisit();
-                categoryVisit.setUser(new User(resultSet.getString(DBHelper.COLUMN_SESSION_ID)));
+                categoryVisit.setUser(getUser(resultSet.getInt(DBHelper.COLUMN_USER_ID)));
                 categoryVisit.setCategory(new Category(this.resultSet.getString(DBHelper.COLUMN_CATEGORY_URL)));
                 categoryVisitList.add(categoryVisit);
             }
