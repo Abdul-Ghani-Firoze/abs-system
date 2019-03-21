@@ -5,7 +5,11 @@
  */
 package com.abs.service;
 
+import com.abs.controller.DiscountGenerator;
 import com.abs.model.Discount;
+import com.abs.model.Product;
+import com.abs.model.User;
+import java.util.logging.Logger;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
@@ -16,16 +20,27 @@ import javax.ws.rs.Path;
 @Path("abs")
 public class DiscountServiceImpl implements DiscountService {
 
+    private static final Logger LOGGER = Logger.getLogger(DiscountServiceImpl.class.getName());
+
     @Override
-    public Discount getDiscount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Path("discount")
+    @GET
+    public Discount getDiscount(String sessionId, int productId) {
+        LOGGER.info("in discount service - get discount");
+
+        User user = new User();
+        user.setSessionId(sessionId);
+
+        Product product = new Product();
+        product.setProductId(productId);
+
+        DiscountGenerator discountGenerator = new DiscountGenerator();
+        return discountGenerator.generateDiscount(user, product);
     }
 
     @Override
-    @GET
-    @Path("test")
     public void test() {
-        System.out.println("TESTTTT");
+        System.out.println("TEST");
     }
 
 }
