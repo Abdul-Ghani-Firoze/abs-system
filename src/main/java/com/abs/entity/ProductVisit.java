@@ -5,8 +5,6 @@
  */
 package com.abs.entity;
 
-import com.abs.model.Product;
-import com.abs.model.User;
 import java.sql.Timestamp;
 
 /**
@@ -15,25 +13,34 @@ import java.sql.Timestamp;
  */
 public class ProductVisit {
 
-    private Product product;
-    private User user;
+    private int userId;
+    private int productId;
+    private String productUrl;
     private Timestamp enteredAt;
     private Timestamp leftAt;
 
-    public Product getProduct() {
-        return product;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public User getUser() {
-        return user;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public String getProductUrl() {
+        return productUrl;
+    }
+
+    public void setProductUrl(String productUrl) {
+        this.productUrl = productUrl;
     }
 
     public Timestamp getEnteredAt() {

@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
  */
 public class DBHelper {
 
-    public static final String TABLE_USERS = "user";
+    public static final String TABLE_USERS = "users";
     public static final String TABLE_PRODUCT_VISITS = "product_visits";
     public static final String TABLE_CATEGORY_VISITS = "category_visits";
     public static final String COLUMN_USER_ID = "userId";
@@ -28,9 +28,11 @@ public class DBHelper {
     public static final String COLUMN_ENTERED_AT = "enteredAt";
     public static final String COLUMN_LEFT_AT = "leftAt";
 
-    public static Connection getConnection() throws SQLException {
-        Connection conn = null;
+    public static Connection getConnection() throws SQLException, ClassNotFoundException {
         ResourceBundle dbResource = ResourceBundle.getBundle("db");
+        
+        Class.forName(dbResource.getString("driver"));
+        Connection conn = null;
 
         // assign db parameters
         String url = dbResource.getString("url");

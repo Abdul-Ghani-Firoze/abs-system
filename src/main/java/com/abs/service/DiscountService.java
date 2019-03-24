@@ -13,6 +13,6 @@ import com.abs.model.Discount;
  */
 public interface DiscountService {
         
-    public void test();
+    public String test();
     public Discount getDiscount(String sessionId, int productId);
 }

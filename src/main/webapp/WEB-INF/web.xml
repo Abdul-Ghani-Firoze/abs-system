@@ -4,7 +4,7 @@
 
     <!-- Jersey Servlet configurations -->
     <servlet>
-        <servlet-name>Jersey REST Service</servlet-name>
+        <servlet-name>ABS REST Service</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
@@ -13,8 +13,8 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Jersey REST Service</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <servlet-name>ABS REST Service</servlet-name>
+        <url-pattern>/service/*</url-pattern>
     </servlet-mapping>
     <!-- Jersey Servlet configurations -->
 

@@ -5,27 +5,33 @@
  */
 package com.abs.service;
 
-import com.abs.controller.DiscountGenerator;
+import com.abs.util.DiscountGenerator;
 import com.abs.model.Discount;
 import com.abs.model.Product;
 import com.abs.model.User;
 import java.util.logging.Logger;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 /**
  *
  * @author ghani
  */
-@Path("abs")
+@Path("discount")
 public class DiscountServiceImpl implements DiscountService {
 
     private static final Logger LOGGER = Logger.getLogger(DiscountServiceImpl.class.getName());
 
     @Override
-    @Path("discount")
-    @GET
-    public Discount getDiscount(String sessionId, int productId) {
+    @Path("{sessionId}/{productId}")
+    @POST
+    public Discount getDiscount(
+            @PathParam("sessionId") String sessionId,
+            @PathParam("productId") int productId) {
+
+        System.out.println("in discount service - get discount");
         LOGGER.info("in discount service - get discount");
 
         User user = new User();
@@ -39,8 +45,11 @@ public class DiscountServiceImpl implements DiscountService {
     }
 
     @Override
-    public void test() {
-        System.out.println("TEST");
+    @Path("test")
+    @GET
+    public String test() {
+        System.out.println("TESTINGGGGG");
+        return "TEST";
     }
 
 }
