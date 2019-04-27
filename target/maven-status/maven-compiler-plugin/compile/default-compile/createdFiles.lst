@@ -10,4 +10,5 @@ com\abs\util\DataCollector.class
 com\abs\model\User.class
 com\abs\entity\CategoryVisit.class
 com\abs\service\DiscountServiceImpl.class
+com\abs\model\Factor.class
 com\abs\entity\ProductVisit.class

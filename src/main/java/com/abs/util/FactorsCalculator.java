@@ -6,6 +6,7 @@
 package com.abs.util;
 
 import com.abs.entity.ProductVisit;
+import com.abs.model.Factors;
 import com.abs.model.Product;
 import com.abs.model.User;
 import java.sql.Date;
@@ -26,27 +27,39 @@ public class FactorsCalculator {
 
     private static final Logger LOGGER = Logger.getLogger(FactorsCalculator.class.getName());
     private final DataCollector DATA_COLLECTOR = new DataCollector();
+    private Factors factors;
+    private User user;
+    private Product product;
+
+    public Factors getFactors(User user, Product product) {
+        this.user = user;
+        this.product = product;
+
+        factors = new Factors();
+        long stickiness = calculateStickiness();
+        boolean hasRevisitedThisProduct = stickiness > 0;
+
+        factors.setStickiness(stickiness);
+        factors.setRevisited(hasRevisitedThisProduct);
+
+        return factors;
+    }
 
     /**
-     * Calculates stickiness of a user on product pages and states which product
-     * the user spent more time on
+     * Calculates stickiness of a user on the product
      *
      * @param user
      * @param product
      * @return
      */
-    public long calculateStickiness(User user, Product product) {
+    private long calculateStickiness() {
         long stickiness = 0;
-
         LOGGER.info("Calculating stickiness...");
-
-        List<ProductVisit> productVisits = DATA_COLLECTOR.getProductVisits(user.getSessionId());
-
-        System.out.println("LIST: " + productVisits);
+        List<ProductVisit> productVisits = DATA_COLLECTOR.getProductVisits(this.user.getSessionId());
 
         // check whether user has visited this product earlier
         List<ProductVisit> thisProductVisits = productVisits.stream()
-                .filter(productVisit -> productVisit.getProductId() == product.getProductId())
+                .filter(productVisit -> productVisit.getProductId() == this.product.getProductId())
                 .collect(Collectors.toList());
 
         if (!thisProductVisits.isEmpty()) {
@@ -65,6 +78,7 @@ public class FactorsCalculator {
                 LocalDateTime timeOfLastVisitEntered = thisProductVisits.get(thisProductVisits.size() - 1).getEnteredAt().toLocalDateTime();
                 LocalDateTime timeOfLastVisitLeft = thisProductVisits.get(thisProductVisits.size() - 1).getLeftAt().toLocalDateTime();
                 long timeDifference = SECONDS.between(timeOfLastVisitEntered, timeOfLastVisitLeft);
+
                 LOGGER.log(Level.INFO, "Difference of time between last visit entered & left {0}", timeDifference);
 
                 stickiness = timeDifference;
@@ -76,6 +90,52 @@ public class FactorsCalculator {
             stickiness = 0;
         }
 
+        LOGGER.log(Level.INFO, "Stickiness: {0}", stickiness);
         return stickiness;
     }
+
+    private boolean isViewingSimilarProducts() {
+        return false;
+    }
+
+    private boolean isProductInCartOrWishlist() {
+        return false;
+    }
+
+    private boolean hasRevisitedThisProduct() {
+        return false;
+    }
+
+    private boolean isFestivalToday() {
+        return false;
+    }
+
+    private boolean hasViewedDetails() {
+        return false;
+    }
+
+    private boolean hasAskedQueries() {
+        return false;
+    }
+
+    private boolean hasRecommendedThisProduct() {
+        return false;
+    }
+
+    private boolean isMember() {
+        return false;
+    }
+
+    private boolean hasReviewedThisProduct() {
+        return false;
+    }
+
+    private boolean isRegularPurchaser() {
+        return false;
+    }
+
+    private int numberOfItemsInCart() {
+        return 0;
+    }
+
 }
