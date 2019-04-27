@@ -21,7 +21,13 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.15</version>
         </dependency>
-
+        
+        <!--        <dependency>
+            <groupId>jfuzzy</groupId>
+            <artifactId>jfuzzy</artifactId>
+            <version>1.0</version>
+        </dependency>-->
+        
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -52,6 +58,21 @@
             <artifactId>cors-filter</artifactId>
             <version>2.6</version>
         </dependency>
+        
+        <!-- To convert Class objects to Map -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.6.3</version>
+        </dependency>
+        
+        <!-- Fuzzy Logic -->
+        <dependency>
+            <groupId>com.fuzzylite</groupId>
+            <artifactId>jfuzzylite</artifactId>
+            <version>6.0.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
